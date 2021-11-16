@@ -38,12 +38,13 @@ string reduceWord(string str)
     return word;
 }
 
-void printThirdAndFourthWord(string str)
+tuple<string,string> returnThirdAndFourthWord(string str)
 {
     // word variable to store word
     string word;
     int contador = 0;
-
+    string terceraP, cuartaP;
+ 
     // making a string stream
     stringstream iss(str);
 
@@ -51,34 +52,97 @@ void printThirdAndFourthWord(string str)
     while (iss >> word) {
         if (contador == 3) {
             cout << word << endl;
+            terceraP = word;
         }
         if (contador == 4) {
             cout << word << endl;
+            cuartaP = word;
         }
         contador++;
     }
-
+    return { terceraP, cuartaP };
 }
 
 void ChargeOnGraph() {
 
 }
 
-void ReturnFirstLine(string filename) {
+tuple<int, int> ReturnFirstAndSecondNumber(string str) {
+    string word;
+    int contador = 0;
+    int primeraP, segundaP;
+    // making a string stream
+    stringstream iss(str);
 
-    string dummyLine; //Para saltarnos solo la primera linea
-    std::ifstream infile(filename);
-    getline(infile, dummyLine);
-    std::istringstream iss(dummyLine);
-    int a, b;
-    iss >> a >> b;
-    cout << a << " " << b << endl;
+    // Read and print each word.
+    while (iss >> word) {
+        if (contador == 0) {
+            cout << word << endl;
+            primeraP = stoi(word);
+        }
+        if (contador == 1) {
+            cout << word << endl;
+            segundaP = stoi(word);
+        }
+        contador++;
+    }
+    return { primeraP, segundaP };
 }
 
+string ReturnFirstWord(string str) {
+    string word;
+    int contador = 0;
+    // making a string stream
+    stringstream iss(str);
+
+    // Read and print each word.
+    while (iss >> word) {
+        if (contador == 0) {
+            cout << word << endl;
+            return word;
+        }
+        contador++;
+    }
+    return word;
+}
 
 int main()
 {
+    /**
+    string holamundo = "Sep 17 00:54:39 33.213.148.82:2528 137.169.193.233:3170 Failed password for admin";
+    
+    //tie(firstNumber, secondNumber) = ReturnFirstAndSecondNumber(holamundo);
+    tie(ThirdNumber, FourthNumber) = returnThirdAndFourthWord(holamundo);
+    **/
 
+    int firstNumber, secondNumber,contadortotal, contadorparcial;
+    string ThirdNumber, FourthNumber, Node;
+
+    string filename;
+    filename = "bitacoracorta.txt";
+
+    string Linea;
+
+    //Leer solo la primera Linea
+    ifstream infile(filename);
+    getline(infile, Linea);
+    istringstream iss(Linea);
+    tie(firstNumber, secondNumber) = ReturnFirstAndSecondNumber(Linea);
+    //La idea es que leamos y anadamos la primera parte que es el set de lineas y despues anadamos el set de Edges en diferentes while
+    for (int i = 0; i < firstNumber; i++) {
+        ifstream infile(filename);
+        string dummyLine; //Para saltarnos solo la primera linea
+        getline(infile, dummyLine);
+        while (std::getline(infile, Linea))
+        {
+            istringstream iss(Linea);
+            Node = ReturnFirstWord(Linea);
+        }
+    }
+
+
+    
+   
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
