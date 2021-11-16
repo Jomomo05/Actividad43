@@ -15,6 +15,7 @@
 #include <tuple>
 
 using namespace std;
+
 //Obtiene la 4ta palabra de una linea y despues filtra esa palabra para 
 //Que solo devuelva el contenido antes de :
 //Es decir, filtra la ip sin ":"
@@ -51,7 +52,7 @@ tuple<string,string> returnThirdAndFourthWord(string str)
     // Read and print each word.
     while (iss >> word) {
         if (contador == 3) {
-            cout << word << endl;
+            cout << word << " ";
             terceraP = word;
         }
         if (contador == 4) {
@@ -61,10 +62,6 @@ tuple<string,string> returnThirdAndFourthWord(string str)
         contador++;
     }
     return { terceraP, cuartaP };
-}
-
-void ChargeOnGraph() {
-
 }
 
 tuple<int, int> ReturnFirstAndSecondNumber(string str) {
@@ -77,7 +74,7 @@ tuple<int, int> ReturnFirstAndSecondNumber(string str) {
     // Read and print each word.
     while (iss >> word) {
         if (contador == 0) {
-            cout << word << endl;
+            cout << word << " ";
             primeraP = stoi(word);
         }
         if (contador == 1) {
@@ -115,34 +112,51 @@ int main()
     tie(ThirdNumber, FourthNumber) = returnThirdAndFourthWord(holamundo);
     **/
 
-    int firstNumber, secondNumber,contadortotal, contadorparcial;
-    string ThirdNumber, FourthNumber, Node;
+    int firstNumber, secondNumber;
+    int i = 0, j;
+    string ThirdWord, FourthWord, Node, Edge;
 
+    //Cargamos Nombre de archivo
     string filename;
     filename = "bitacoracorta.txt";
 
     string Linea;
 
-    //Leer solo la primera Linea
+    //Leer solo la primera Linea (Nodes,Edges)
     ifstream infile(filename);
     getline(infile, Linea);
     istringstream iss(Linea);
     tie(firstNumber, secondNumber) = ReturnFirstAndSecondNumber(Linea);
-    //La idea es que leamos y anadamos la primera parte que es el set de lineas y despues anadamos el set de Edges en diferentes while
-    for (int i = 0; i < firstNumber; i++) {
-        ifstream infile(filename);
-        string dummyLine; //Para saltarnos solo la primera linea
-        getline(infile, dummyLine);
+
+    //Leemos todos los Nodes y los anadimos a Graph
         while (std::getline(infile, Linea))
         {
             istringstream iss(Linea);
             Node = ReturnFirstWord(Linea);
+            //Anadir el Node a Graph
+            //Graph.[i] = Node;
+            if (i < firstNumber -1) {
+                i++;
+            }
+            else {
+                break;
+            }
+            
+        }
+        i = 0;
+    //Leemos todos Edges y los anadimos a Graph
+        while (std::getline(infile, Linea)){
+        istringstream iss(Linea);
+        tie(ThirdWord,FourthWord) = returnThirdAndFourthWord(Linea);
+        //Anadimos el Edge a Graph
+        //Graph.AddEdge(ThirdNumber,FourthNU
+        if (i < firstNumber) {
+            i++;
+        }
+        else {
+            break;
         }
     }
-
-
-    
-   
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
